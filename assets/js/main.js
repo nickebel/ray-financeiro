@@ -158,6 +158,17 @@
   function exportBackup(){
     download(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),"ray-backup-"+todayISO()+".json");say("Backup baixado. Guarde o arquivo em um lugar seguro.");
   }
+  function exportCsv(){
+    const list=monthTransactions(currentKey());
+    if(!list.length){say("Não há movimentações neste mês.");return;}
+    const rows=[["Data","Tipo","Descrição","Categoria","Valor"]];
+    list.slice().reverse().forEach(t=>rows.push([t.date,t.type==="income"?"Entrada":"Saída",t.description,category(t.type,t.category).name,Number(t.amount).toFixed(2).replace(".",",")]));
+    const csv="\\uFEFF"+rows.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(";")).join("\\r\\n");
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="ray-movimentacoes-"+currentKey()+".csv";document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);say("Planilha do mês baixada.");
+  }
   function importBackup(file){
     if(!file)return;const reader=new FileReader();
     reader.onload=()=>{
