@@ -71,20 +71,19 @@
   if (whatsappStatus && digits) whatsappStatus.textContent = "Canal configurado para atendimento.";
   if (emailStatus && config.email) emailStatus.textContent = config.email;
 
+  const productInterest = {
+    "Organiza 7 Dias": "Quero conhecer os materiais digitais",
+    "Plano Financeiro Pessoal": "Tenho interesse no Plano Financeiro Pessoal",
+    "Finanças na Prática": "Quero conhecer os materiais digitais",
+    "Evolução 90": "Tenho interesse no Plano Financeiro Pessoal"
+  };
+  const selectedInterest = new URLSearchParams(window.location.search).get("interesse");
+  const contactSelect = document.querySelector('#contact-form select[name="interest"]');
+  if (contactSelect && selectedInterest) contactSelect.value = selectedInterest;
   document.querySelectorAll("[data-product]").forEach(link => {
-    link.addEventListener("click", () => {
-      const product = link.getAttribute("data-product");
-      const select = document.querySelector('#contact-form select[name="interest"]');
-      if (select && product) {
-        const map = {
-          "Organiza 7 Dias": "Quero conhecer os materiais digitais",
-          "Plano Financeiro Pessoal": "Tenho interesse no Plano Financeiro Pessoal",
-          "Finanças na Prática": "Quero conhecer os materiais digitais",
-          "Evolução 90": "Tenho interesse no Plano Financeiro Pessoal"
-        };
-        select.value = map[product] || "Outro assunto";
-      }
-    });
+    const product = link.getAttribute("data-product");
+    const interest = productInterest[product] || "Outro assunto";
+    link.href = "contato.html?interesse=" + encodeURIComponent(interest) + "#formulario";
   });
 
   const contactForm = document.getElementById("contact-form");
