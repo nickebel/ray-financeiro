@@ -440,6 +440,9 @@
       else button.removeAttribute("aria-current");
     });
 
+    const title = $("#header-screen-title");
+    if (title) title.textContent = ({ resumo: "Olá, Ray", extrato: "Extrato", limite: "Limite", metas: "Metas" })[selected];
+
     const main = $("#app-main");
     if (main) main.scrollTop = 0;
 
