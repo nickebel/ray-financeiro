@@ -46,4 +46,6 @@ Endereço: https://nickebel.github.io/ray-financeiro/
 - \`assets/js/main.js\`
 - \`assets/img/favicon.svg\`
 
+Ícones do aplicativo: `assets/img/apple-touch-icon.png` (iOS), `assets/img/icon-192.png` e `assets/img/icon-512.png` (PWA), além de `assets/img/favicon.svg`.
+
 Ray é um organizador pessoal, não um banco, carteira digital ou consultoria de investimentos.
