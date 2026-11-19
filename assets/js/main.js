@@ -197,7 +197,7 @@
     const nav=event.target.closest('.desktop-nav a[href^="#"], .mobile-bottom-nav a[href^="#"]');
     if(nav){
       const href=nav.getAttribute("href");
-      $(".desktop-nav a, .mobile-bottom-nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")===href));
+      $$(".desktop-nav a, .mobile-bottom-nav a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")===href));
       closeMenu();return;
     }
     const action=event.target.closest("[data-action]");
@@ -265,9 +265,9 @@
     const nav=$("#desktop-nav"),open=nav.classList.toggle("open");
     $("#mobile-nav-toggle").setAttribute("aria-expanded",String(open));
   });
-  $(".desktop-nav a, .mobile-bottom-nav a").forEach(a=>a.addEventListener("click",()=>{
+  $$(".desktop-nav a, .mobile-bottom-nav a").forEach(a=>a.addEventListener("click",()=>{
     const href=a.getAttribute("href");
-    $(".desktop-nav a, .mobile-bottom-nav a").forEach(item=>item.classList.toggle("active",item.getAttribute("href")===href));
+    $$(".desktop-nav a, .mobile-bottom-nav a").forEach(item=>item.classList.toggle("active",item.getAttribute("href")===href));
   }));
   $$(".modal").forEach(dialog=>dialog.addEventListener("click",event=>{if(event.target===dialog)dialog.close();}));
   document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
@@ -275,12 +275,15 @@
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
-          const active=$('.desktop-nav a[href="#'+entry.target.id+'"]');
-          if(active)$(".desktop-nav a").forEach(link=>link.classList.toggle("active",link===active));
+          const href="#"+entry.target.id;
+          const active=$('.desktop-nav a[href="'+href+'"], .mobile-bottom-nav a[href="'+href+'"]');
+          if(active){
+            $$(".desktop-nav a, .mobile-bottom-nav a").forEach(link=>link.classList.toggle("active",link.getAttribute("href")===href));
+          }
         }
       });
     },{rootMargin:"-22% 0px -68% 0px"});
-    $("main section[id]").forEach(section=>observer.observe(section));
+    $$("main section[id]").forEach(section=>observer.observe(section));
   }
   $("#current-year").textContent=new Date().getFullYear();
   render();
