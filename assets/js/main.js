@@ -1,29 +1,45 @@
 (() => {
   "use strict";
 
-  // Não altere esta chave: ela mantém compatibilidade com os dados já salvos.
+  // Keep this key unchanged to preserve data from every previous Ray version.
   const STORAGE_KEY = "ray-financeiro-data-v1";
-  const INSTALL_TIP_KEY = "ray-financeiro-install-tip-v1";
 
   const CATEGORIES = {
     income: [
-      { id: "salary", name: "Salário", icon: "▣" },
-      { id: "extra", name: "Renda extra", icon: "↗" },
-      { id: "sales", name: "Vendas", icon: "◇" },
-      { id: "other-income", name: "Outras entradas", icon: "＋" }
+      { id: "salary", name: "Salário", icon: "briefcase" },
+      { id: "extra", name: "Renda extra", icon: "trending" },
+      { id: "sales", name: "Vendas", icon: "bag" },
+      { id: "other-income", name: "Outras entradas", icon: "plus" }
     ],
     expense: [
-      { id: "housing", name: "Moradia", icon: "⌂" },
-      { id: "food", name: "Alimentação", icon: "✳" },
-      { id: "transport", name: "Transporte", icon: "↗" },
-      { id: "health", name: "Saúde", icon: "＋" },
-      { id: "leisure", name: "Lazer", icon: "☆" },
-      { id: "education", name: "Educação", icon: "▧" },
-      { id: "bills", name: "Contas", icon: "≋" },
-      { id: "shopping", name: "Compras", icon: "◇" },
-      { id: "subscriptions", name: "Assinaturas", icon: "◷" },
-      { id: "other-expense", name: "Outros gastos", icon: "•••" }
+      { id: "housing", name: "Moradia", icon: "home" },
+      { id: "food", name: "Alimentação", icon: "food" },
+      { id: "transport", name: "Transporte", icon: "car" },
+      { id: "health", name: "Saúde", icon: "health" },
+      { id: "leisure", name: "Lazer", icon: "ticket" },
+      { id: "education", name: "Educação", icon: "book" },
+      { id: "bills", name: "Contas", icon: "receipt" },
+      { id: "shopping", name: "Compras", icon: "bag" },
+      { id: "subscriptions", name: "Assinaturas", icon: "repeat" },
+      { id: "other-expense", name: "Outros gastos", icon: "more" }
     ]
+  };
+
+  const ICON_PATHS = {
+    briefcase: '<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/>',
+    trending: '<path d="M3 17 9 11l4 4 8-9M15 6h6v6"/>',
+    bag: '<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    home: '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
+    food: '<path d="M4 3v7a3 3 0 0 0 6 0V3M7 3v18M17 3v18M17 3c2 2 3 5 3 8h-3"/>',
+    car: '<path d="m5 11 2-6h10l2 6M4 11h16l1 8H3l1-8ZM6 15h.01M18 15h.01M7 19v2M17 19v2"/>',
+    health: '<path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11Z"/><path d="M8 12h8M12 8v8"/>',
+    ticket: '<path d="M4 6h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4V6Z"/><path d="M12 7v2m0 2v2m0 2v2"/>',
+    book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5zM4 5.5v12M8 7h8M8 11h8"/>',
+    receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+    repeat: '<path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/>',
+    more: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+    goal: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>'
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -42,11 +58,37 @@
     currency: "BRL"
   }).format(Number(value) || 0);
 
+  function moneyHtml(value) {
+    const parts = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    }).formatToParts(Number(value) || 0);
+
+    let html = "";
+    let cents = "";
+    parts.forEach(part => {
+      if (part.type === "currency") {
+        html += '<span class="money-currency">' + escapeHtml(part.value) + '</span>&nbsp;';
+      } else if (part.type === "decimal") {
+        cents += part.value;
+      } else if (part.type === "fraction") {
+        cents += part.value;
+      } else if (part.type === "integer" || part.type === "group") {
+        html += '<span class="money-major">' + escapeHtml(part.value) + '</span>';
+      } else if (part.type === "minusSign" || part.type === "plusSign") {
+        html += escapeHtml(part.value);
+      }
+    });
+
+    if (cents) html += '<span class="money-cents">' + escapeHtml(cents) + '</span>';
+    return html;
+  }
+
   const monthName = date => {
     const value = new Intl.DateTimeFormat("pt-BR", {
-      month: "long",
+      month: "short",
       year: "numeric"
-    }).format(date);
+    }).format(date).replace(".", "");
     return value.charAt(0).toLocaleUpperCase("pt-BR") + value.slice(1);
   };
 
@@ -125,7 +167,7 @@
     toast.textContent = message;
     toast.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
   };
 
   function save() {
@@ -133,12 +175,13 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       return true;
     } catch (error) {
-      say("Não foi possível salvar. Exporte um backup e libere espaço no navegador.");
+      say("Não foi possível salvar. Exporte um backup JSON.");
       return false;
     }
   }
 
   const currentKey = () => monthKey(selectedMonth);
+
   const monthTransactions = key => state.transactions
     .filter(transaction => transaction.date && transaction.date.slice(0, 7) === key)
     .sort((a, b) => b.date.localeCompare(a.date) || (b.createdAt || 0) - (a.createdAt || 0));
@@ -158,8 +201,14 @@
     return (CATEGORIES[type] || []).find(item => item.id === id) || {
       id: "other",
       name: "Outros",
-      icon: "•"
+      icon: "more"
     };
+  }
+
+  function iconSvg(name, className) {
+    const path = ICON_PATHS[name] || ICON_PATHS.more;
+    return '<svg' + (className ? ' class="' + className + '"' : '') +
+      ' viewBox="0 0 24 24" aria-hidden="true">' + path + '</svg>';
   }
 
   function budgetLimit() {
@@ -176,20 +225,17 @@
 
   function budgetMarkup(spent, limit) {
     if (!limit) {
-      return '<div class="budget-empty">' +
-        'Você ainda não definiu um limite para este mês.' +
-        '<br><button type="button" data-action="set-budget">Definir limite mensal ↗</button>' +
-        '</div>';
+      return '<div class="budget-empty">Nenhum limite definido para este mês.</div>';
     }
 
     const percentage = spent / limit * 100;
     const remaining = limit - spent;
-    const over = remaining < 0;
     const width = Math.min(100, Math.max(0, percentage));
+    const over = remaining < 0;
 
     return '<div class="budget-value-row">' +
-      '<strong class="money">' + money(spent) + '</strong>' +
-      '<span>de ' + money(limit) + '</span>' +
+      '<strong class="money">' + moneyHtml(spent) + '</strong>' +
+      '<span>de ' + moneyHtml(limit) + '</span>' +
       '</div>' +
       '<div class="budget-track' + (over ? " over" : "") + '">' +
       '<i style="width:' + width + '%"></i>' +
@@ -201,25 +247,22 @@
   }
 
   function renderBudgetProgress(spent, limit) {
+    const wrapper = $("#balance-progress");
     const label = $("#budget-progress-label");
     const value = $("#budget-progress-value");
     const bar = $("#budget-progress-bar");
     const track = $("#budget-progress-track");
-    if (!label || !value || !bar || !track) return;
 
-    if (!limit) {
-      label.textContent = "Defina um limite para acompanhar seus gastos";
-      value.textContent = "—";
-      bar.style.width = "0%";
-      track.setAttribute("aria-valuenow", "0");
-      track.classList.remove("over");
-      return;
-    }
+    if (!wrapper || !label || !value || !bar || !track) return;
+    wrapper.hidden = !limit;
+
+    if (!limit) return;
 
     const percentage = spent / limit * 100;
     const width = Math.min(100, Math.max(0, percentage));
     const over = percentage > 100;
-    label.textContent = over ? "Você ultrapassou o limite mensal" : "do limite mensal utilizado";
+
+    label.textContent = over ? "Limite ultrapassado" : "Limite utilizado";
     value.textContent = percentage.toFixed(0).replace(".", ",") + "%";
     bar.style.width = width + "%";
     track.setAttribute("aria-valuenow", String(Math.round(width)));
@@ -244,19 +287,18 @@
   function categoryHtml(list) {
     const rows = categorySums(list);
     if (!rows.length) {
-      return '<div class="empty-state"><b>Nenhum gasto por categoria.</b>Seus gastos aparecerão aqui quando você registrar uma saída.</div>';
+      return '<div class="empty-state">Nenhum gasto por categoria neste mês.</div>';
     }
 
     const max = rows[0].total || 1;
-    return rows.slice(0, 7).map(item => {
-      const percentage = Math.max(3, item.total / max * 100);
+    return rows.map(item => {
+      const percentage = Math.max(2, item.total / max * 100);
       return '<div class="category-row">' +
-        '<span class="category-icon" aria-hidden="true">' + escapeHtml(item.icon) + '</span>' +
         '<div class="category-info">' +
         '<strong>' + escapeHtml(item.name) + '</strong>' +
         '<div class="category-track"><i style="width:' + percentage + '%"></i></div>' +
         '</div>' +
-        '<strong class="money">' + money(item.total) + '</strong>' +
+        '<strong class="money">' + moneyHtml(item.total) + '</strong>' +
         '</div>';
     }).join("");
   }
@@ -266,132 +308,106 @@
     const total = sums(list);
     const limit = budgetLimit();
 
-    $("#summary-balance").textContent = money(total.balance);
-    $("#summary-income").textContent = money(total.income);
-    $("#summary-expenses").textContent = money(total.expenses);
-
-    $("#category-breakdown").innerHTML = categoryHtml(list);
-    $("#planning-categories").innerHTML = categoryHtml(list);
-    $("#budget-summary").innerHTML = budgetMarkup(total.expenses, limit);
+    $("#summary-balance").innerHTML = moneyHtml(total.balance);
+    $("#summary-income").innerHTML = moneyHtml(total.income);
+    $("#summary-expenses").innerHTML = moneyHtml(total.expenses);
     renderBudgetProgress(total.expenses, limit);
-    renderMovementChart();
+    renderRecentTransactions(list);
   }
 
-  function renderMovementChart() {
-    const target = $("#movement-chart");
-    const months = [];
-
-    for (let offset = 5; offset >= 0; offset--) {
-      const date = new Date(
-        selectedMonth.getFullYear(),
-        selectedMonth.getMonth() - offset,
-        1
-      );
-      const total = sums(monthTransactions(monthKey(date)));
-      months.push({
-        label: new Intl.DateTimeFormat("pt-BR", { month: "short" })
-          .format(date).replace(".", ""),
-        income: total.income,
-        expenses: total.expenses
-      });
-    }
-
-    const max = Math.max(1, ...months.map(item => Math.max(item.income, item.expenses)));
-    target.innerHTML = months.map(item => {
-      const incomeHeight = item.income ? Math.max(3, item.income / max * 100) : 1;
-      const expenseHeight = item.expenses ? Math.max(3, item.expenses / max * 100) : 1;
-      return '<div class="movement-month" title="Entradas ' + money(item.income) +
-        ' · Saídas ' + money(item.expenses) + '">' +
-        '<div class="movement-bars">' +
-        '<i class="bar-in" style="height:' + incomeHeight + '%"></i>' +
-        '<i class="bar-out" style="height:' + expenseHeight + '%"></i>' +
-        '</div><small>' + escapeHtml(item.label) + '</small></div>';
-    }).join("");
-  }
-
-  function rowHtml(transaction) {
+  function movementMarkup(transaction, actions) {
     const itemCategory = category(transaction.type, transaction.category);
     const isIncome = transaction.type === "income";
     const sign = isIncome ? "+" : "−";
-    const meta = escapeHtml(itemCategory.name) + " <span aria-hidden=\"true\">·</span> " +
-      '<time class="record-date" datetime="' + escapeHtml(transaction.date) + '">' +
-      escapeHtml(dateLabel(transaction.date)) + '</time>';
+    const meta = escapeHtml(itemCategory.name) + " / " + escapeHtml(dateLabel(transaction.date));
+    const rowClass = "movement-row" + (actions ? " has-actions" : "");
+    const value = '<strong class="movement-amount ' + (isIncome ? "income" : "expense") +
+      '">' + sign + ' ' + moneyHtml(transaction.amount) + '</strong>';
 
-    return '<article class="record-row">' +
-      '<button class="record-main" type="button" data-toggle-record="' + escapeHtml(transaction.id) +
-      '" aria-expanded="false">' +
-      '<span class="record-icon" aria-hidden="true">' + escapeHtml(itemCategory.icon) + '</span>' +
-      '<span class="record-description">' +
-      '<b>' + escapeHtml(transaction.description) + '</b>' +
-      '<small class="record-meta">' + meta + '</small>' +
-      '</span>' +
-      '<strong class="record-amount ' + (isIncome ? "income" : "expense") + '">' +
-      sign + ' ' + money(transaction.amount) +
-      '</strong>' +
-      '</button>' +
-      '<div class="record-actions" hidden>' +
-      '<button type="button" data-edit-transaction="' + escapeHtml(transaction.id) + '">Editar</button>' +
-      '<button type="button" data-delete-transaction="' + escapeHtml(transaction.id) + '">Excluir</button>' +
-      '</div>' +
-      '</article>';
+    let main;
+    if (actions) {
+      main = '<button class="movement-row-main" type="button" data-toggle-record="' +
+        escapeHtml(transaction.id) + '" aria-expanded="false">' +
+        '<span class="movement-icon">' + iconSvg(itemCategory.icon) + '</span>' +
+        '<span class="movement-copy"><strong>' + escapeHtml(transaction.description) +
+        '</strong><small>' + meta + '</small></span>' + value + '</button>';
+    } else {
+      main = '<div class="movement-row-main">' +
+        '<span class="movement-icon">' + iconSvg(itemCategory.icon) + '</span>' +
+        '<span class="movement-copy"><strong>' + escapeHtml(transaction.description) +
+        '</strong><small>' + meta + '</small></span>' + value + '</div>';
+    }
+
+    const actionMarkup = actions
+      ? '<div class="movement-actions" hidden>' +
+        '<button type="button" data-edit-transaction="' + escapeHtml(transaction.id) + '">Editar</button>' +
+        '<button type="button" data-delete-transaction="' + escapeHtml(transaction.id) + '">Excluir</button>' +
+        '</div>'
+      : "";
+
+    return '<article class="' + rowClass + '">' + main + actionMarkup + '</article>';
+  }
+
+  function renderRecentTransactions(list) {
+    const target = $("#recent-transactions");
+    const latest = list.slice(0, 5);
+
+    target.innerHTML = latest.length
+      ? latest.map(transaction => movementMarkup(transaction, false)).join("")
+      : '<div class="empty-state">Nenhuma movimentação neste mês.</div>';
   }
 
   function renderTransactions() {
     const query = $("#transaction-search").value.trim().toLocaleLowerCase("pt-BR");
     const filter = $("#transaction-filter").value;
+
     const items = monthTransactions(currentKey()).filter(transaction => {
-      const description = (transaction.description + " " + category(transaction.type, transaction.category).name)
-        .toLocaleLowerCase("pt-BR");
+      const searchable = (transaction.description + " " +
+        category(transaction.type, transaction.category).name).toLocaleLowerCase("pt-BR");
+
       return (filter === "all" || transaction.type === filter) &&
-        (!query || description.includes(query));
+        (!query || searchable.includes(query));
     });
 
     $("#all-transactions").innerHTML = items.length
-      ? items.map(rowHtml).join("")
-      : '<div class="empty-state"><b>Nenhuma movimentação encontrada.</b>Adicione um registro ou ajuste os filtros.</div>';
+      ? items.map(transaction => movementMarkup(transaction, true)).join("")
+      : '<div class="empty-state">Nenhuma movimentação encontrada.</div>';
 
     $("#transaction-count").textContent = items.length +
-      (items.length === 1 ? " movimentação neste mês" : " movimentações neste mês");
+      (items.length === 1 ? " movimentação" : " movimentações");
   }
 
   function renderGoals() {
     const target = $("#goals-list");
     if (!state.goals.length) {
-      target.innerHTML = '<div class="empty-state empty-goals">' +
-        '<b>Você ainda não criou uma meta.</b>Defina um objetivo e acompanhe seu progresso.' +
-        '</div>';
+      target.innerHTML = '<div class="empty-state">Nenhuma meta criada ainda.</div>';
       return;
     }
 
-    const symbols = ["◎", "✈", "⌂", "☆"];
-    target.innerHTML = state.goals.map((goal, index) => {
+    target.innerHTML = state.goals.map(goal => {
       const saved = Number(goal.saved) || 0;
       const goalTarget = Number(goal.target);
       const percentage = Math.min(100, goalTarget > 0 ? saved / goalTarget * 100 : 0);
       const remaining = Math.max(0, goalTarget - saved);
-      const symbol = symbols[index % symbols.length];
 
       return '<article class="goal-card">' +
         '<div class="goal-card-top">' +
-        '<span class="goal-card-icon" aria-hidden="true">' + symbol + '</span>' +
+        '<span class="goal-card-icon">' + iconSvg("goal") + '</span>' +
         '<div class="goal-actions">' +
         '<button type="button" data-edit-goal="' + escapeHtml(goal.id) + '">Editar</button>' +
-        '<button type="button" data-delete-goal="' + escapeHtml(goal.id) + '" aria-label="Excluir meta">×</button>' +
+        '<button type="button" data-delete-goal="' + escapeHtml(goal.id) + '">Excluir</button>' +
         '</div></div>' +
         '<h3>' + escapeHtml(goal.name) + '</h3>' +
-        '<div class="goal-amounts">' +
-        '<strong class="money">' + money(saved) + '</strong>' +
-        '<span>de ' + money(goalTarget) + '</span>' +
-        '</div>' +
+        '<div class="goal-amounts"><strong class="money">' + moneyHtml(saved) +
+        '</strong><span>de ' + moneyHtml(goalTarget) + '</span></div>' +
         '<div class="goal-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
         Math.round(percentage) + '" aria-label="Progresso da meta">' +
         '<i style="width:' + percentage + '%"></i></div>' +
-        '<div class="goal-card-foot">' +
-        '<small class="tabular">' + percentage.toFixed(0).replace(".", ",") + '% concluído · faltam ' +
-        money(remaining) + '</small>' +
-        '<button class="goal-contribute" type="button" data-contribute-goal="' +
-        escapeHtml(goal.id) + '">Adicionar valor +</button>' +
-        '</div></article>';
+        '<div class="goal-card-foot"><small>' +
+        percentage.toFixed(0).replace(".", ",") + '% concluído / faltam ' + money(remaining) +
+        '</small><button class="goal-contribute" type="button" data-contribute-goal="' +
+        escapeHtml(goal.id) + '">Adicionar valor</button></div>' +
+        '</article>';
     }).join("");
   }
 
@@ -400,6 +416,11 @@
     renderSummary();
     renderTransactions();
     renderGoals();
+    renderBudgetCategories();
+  }
+
+  function renderBudgetCategories() {
+    $("#planning-categories").innerHTML = categoryHtml(monthTransactions(currentKey()));
   }
 
   function setActiveTab(tab) {
@@ -419,9 +440,11 @@
       else button.removeAttribute("aria-current");
     });
 
-    const backupMenu = $("#backup-menu");
-    if (backupMenu) backupMenu.open = false;
-    window.scrollTo(0, 0);
+    const main = $("#app-main");
+    if (main) main.scrollTop = 0;
+
+    const menu = $("#backup-menu");
+    if (menu) menu.open = false;
   }
 
   function setCategoryOptions(type, selected) {
@@ -451,6 +474,10 @@
 
     $("#transaction-modal-title").textContent = old ? "Editar movimentação" : "Nova movimentação";
     $("#transaction-modal").showModal();
+
+    requestAnimationFrame(() => {
+      if (form.elements.description) form.elements.description.focus({ preventScroll: true });
+    });
   }
 
   function openBudget() {
@@ -482,7 +509,7 @@
     form.reset();
     form.elements.id.value = id;
     $("#contribution-goal-name").textContent =
-      goal.name + " · você já guardou " + money(goal.saved || 0) + ".";
+      goal.name + " / você já guardou " + money(goal.saved || 0) + ".";
     $("#contribution-modal").showModal();
   }
 
@@ -511,7 +538,7 @@
       type: "application/json"
     });
     download(file, "ray-backup-" + todayISO() + ".json");
-    say("Backup exportado. Guarde o arquivo em um local seguro.");
+    say("Backup exportado.");
   }
 
   function exportCsv() {
@@ -540,7 +567,7 @@
       new Blob([csv], { type: "text/csv;charset=utf-8" }),
       "ray-extrato-" + currentKey() + ".csv"
     );
-    say("Extrato CSV exportado.");
+    say("Extrato exportado.");
   }
 
   function importBackup(file) {
@@ -583,7 +610,7 @@
         state = next;
         save();
         render();
-        say("Backup restaurado com sucesso.");
+        say("Backup restaurado.");
       } catch (error) {
         say("Esse arquivo não parece ser um backup válido do Ray.");
       }
@@ -593,28 +620,6 @@
     reader.readAsText(file);
   }
 
-  function setupInstallTip() {
-    const tip = $("#install-tip");
-    if (!tip) return;
-
-    const userAgent = navigator.userAgent || "";
-    const isIOS = /iPhone|iPad|iPod/i.test(userAgent) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    const isStandalone = navigator.standalone === true ||
-      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
-
-    if (!isIOS || isStandalone) return;
-
-    try {
-      if (localStorage.getItem(INSTALL_TIP_KEY) !== "1") {
-        tip.hidden = false;
-      }
-    } catch (error) {
-      tip.hidden = false;
-    }
-  }
-
-  // Alternância entre as quatro telas do app e ações globais.
   document.addEventListener("click", event => {
     const tabLink = event.target.closest("[data-tab-link]");
     if (tabLink) {
@@ -629,14 +634,14 @@
       return;
     }
 
-    const recordToggle = event.target.closest("[data-toggle-record]");
-    if (recordToggle) {
-      const row = recordToggle.closest(".record-row");
-      const actions = row && $(".record-actions", row);
+    const toggle = event.target.closest("[data-toggle-record]");
+    if (toggle) {
+      const row = toggle.closest(".movement-row");
+      const actions = row && $(".movement-actions", row);
       if (row && actions) {
-        const isOpen = row.classList.toggle("is-open");
-        actions.hidden = !isOpen;
-        recordToggle.setAttribute("aria-expanded", String(isOpen));
+        const open = row.classList.toggle("is-open");
+        actions.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
       }
       return;
     }
@@ -650,10 +655,6 @@
       if (name === "add-goal") openGoal();
       if (name === "previous-month") changeMonth(-1);
       if (name === "next-month") changeMonth(1);
-      if (name === "current-month") {
-        selectedMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-        render();
-      }
       if (name === "export-csv") exportCsv();
       if (name === "export-backup") {
         const menu = action.closest("details");
@@ -665,6 +666,7 @@
         if (menu) menu.open = false;
         $("#backup-file").click();
       }
+      return;
     }
 
     const close = event.target.closest("[data-close]");
@@ -716,10 +718,8 @@
       return;
     }
 
-    const backupMenu = $("#backup-menu");
-    if (backupMenu && backupMenu.open && !backupMenu.contains(event.target)) {
-      backupMenu.open = false;
-    }
+    const menu = $("#backup-menu");
+    if (menu && menu.open && !menu.contains(event.target)) menu.open = false;
   });
 
   $("#transaction-form").addEventListener("change", event => {
@@ -734,7 +734,7 @@
     const id = form.elements.id.value || makeId();
     const type = form.elements.type.value;
     const amount = validMoney(Number(form.elements.amount.value));
-    const item = {
+    const transaction = {
       id,
       type,
       description: form.elements.description.value.trim(),
@@ -744,17 +744,17 @@
       createdAt: Date.now()
     };
 
-    if (!item.description || !item.date || amount <= 0) {
+    if (!transaction.description || !transaction.date || amount <= 0) {
       say("Confira os dados da movimentação.");
       return;
     }
 
-    const index = state.transactions.findIndex(transaction => transaction.id === id);
+    const index = state.transactions.findIndex(item => item.id === id);
     if (index >= 0) {
-      item.createdAt = state.transactions[index].createdAt || Date.now();
-      state.transactions[index] = item;
+      transaction.createdAt = state.transactions[index].createdAt || Date.now();
+      state.transactions[index] = transaction;
     } else {
-      state.transactions.push(item);
+      state.transactions.push(transaction);
     }
 
     save();
@@ -840,24 +840,26 @@
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
     });
+    dialog.addEventListener("close", () => {
+      const active = document.activeElement;
+      if (active && active.blur) active.blur();
+    });
   });
 
-  $("#dismiss-install-tip").addEventListener("click", () => {
-    $("#install-tip").hidden = true;
-    try {
-      localStorage.setItem(INSTALL_TIP_KEY, "1");
-    } catch (error) {
-      // O aviso continua dispensado nesta sessão, mesmo sem poder gravar a preferência.
-    }
+  // Keep focused fields visible when the iOS virtual keyboard resizes the viewport.
+  document.addEventListener("focusin", event => {
+    const field = event.target.closest(".modal input, .modal select");
+    if (!field) return;
+    setTimeout(() => {
+      field.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }, 220);
   });
 
-  // Fecha o menu de backup ao tocar fora dele.
   document.addEventListener("pointerdown", event => {
     const menu = $("#backup-menu");
     if (menu && menu.open && !menu.contains(event.target)) menu.open = false;
   });
 
-  setupInstallTip();
   setActiveTab("resumo");
   render();
 })();
