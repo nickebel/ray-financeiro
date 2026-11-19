@@ -1,66 +1,64 @@
 # Ray — Meu financeiro
 
-Organizador financeiro pessoal, simples e privado, feito para o Ray.
+Um organizador financeiro pessoal, simples e dinâmico, criado para o Ray.
 
-## O que faz
+## O que tem
 
-- Registra entradas e saídas.
-- Mostra saldo, receitas e despesas do mês.
-- Organiza lançamentos por categoria.
-- Permite definir um limite mensal de gastos.
-- Acompanha metas de economia.
-- Pesquisa e filtra lançamentos.
-- Exporta lançamentos em CSV.
-- Faz backup e restauração de todos os dados em JSON.
+- Resumo mensal com saldo, entradas e saídas.
+- Gráfico dos últimos seis meses.
+- Registro, edição e exclusão de movimentações.
+- Categorias para receitas e despesas.
+- Busca e filtro do histórico.
+- Limite de gastos por mês.
+- Metas pessoais com atualização de valores guardados.
+- Exportação dos lançamentos em CSV.
+- Backup e restauração de todos os dados em JSON.
+- Layout responsivo para computador e celular.
 
-## Como usar
+## Visual e navegação
 
-O projeto é estático: não precisa de Node.js, processo de build, banco de dados, conta ou servidor próprio.
+O site usa uma identidade editorial leve, com referências visuais tropicais: Fraunces e DM Sans, verde, creme, coral e amarelo. As seções funcionam em uma única página, com navegação por âncoras e formulários interativos.
 
-### Publicar gratuitamente com GitHub Pages
+## Publicação no GitHub Pages
 
-1. Abra a aba **Settings** deste repositório.
-2. Entre em **Pages** no menu lateral.
-3. Em **Build and deployment**, escolha **Deploy from a branch**.
-4. Selecione a branch **main** e a pasta **/(root)**.
-5. Salve e aguarde a publicação do GitHub Pages.
+Não usa Netlify, Node.js, build, banco de dados nem servidor.
 
-Depois, o endereço esperado será:
+1. Abra **Settings** neste repositório.
+2. Entre em **Pages**.
+3. Em Build and deployment, selecione **Deploy from a branch**.
+4. Escolha a branch **main** e a pasta **/(root)**.
+5. Salve.
 
-`https://nickebel.github.io/ray-financeiro/`
+O endereço esperado é:
 
-O GitHub pode levar alguns minutos para publicar a primeira versão. O site não precisa de configuração de build.
+https://nickebel.github.io/ray-financeiro/
 
-### Testar sem publicar
+## Como os dados são guardados
 
-Baixe o repositório e abra `index.html` no navegador. Também pode usar a extensão Live Server do VS Code.
+Os registros ficam no armazenamento local (localStorage) do navegador. O site não envia transações para o GitHub nem para um servidor.
 
-## Privacidade: leia antes de usar
+Isso significa que:
+- Os dados ficam no navegador e aparelho usados pelo Ray.
+- Em outro navegador ou aparelho, será necessário importar um backup.
+- Limpar os dados do navegador pode apagar os registros.
+- Use **Baixar backup** para guardar uma cópia JSON.
+- Use **Restaurar backup** para recuperar ou transferir os dados.
+- O CSV pode ser aberto no Excel ou Google Planilhas.
 
-Os lançamentos, orçamentos e metas ficam salvos no `localStorage` do navegador utilizado. O site não envia essas informações ao GitHub, a uma API ou a um servidor.
-
-Isso significa:
-
-- Os dados ficam disponíveis somente naquele navegador e aparelho.
-- Outro computador ou navegador começa com uma base separada.
-- Limpar os dados do navegador pode apagar as informações.
-- Exporte regularmente um backup em **Dados e ajustes**.
-- Para transferir os dados, exporte o JSON no aparelho antigo e importe no novo.
-
-O repositório e o código do site são públicos, mas os dados financeiros digitados pelo Ray não são gravados nos arquivos do GitHub.
+O código do site é público, mas as movimentações que Ray digita não são adicionadas ao repositório.
 
 ## Estrutura
 
 ```
 .
 ├── index.html
-├── assets/
-│   ├── css/styles.css
-│   ├── img/favicon.svg
-│   └── js/main.js
-└── README.md
+├── README.md
+└── assets/
+    ├── css/styles.css
+    ├── img/favicon.svg
+    └── js/main.js
 ```
 
-## Observação
+## Escopo
 
-Este projeto é um organizador pessoal, não um banco, carteira digital ou serviço de investimento. Os valores são inseridos e mantidos pelo próprio usuário.
+Este projeto é um organizador pessoal. Não é banco, carteira digital ou consultoria de investimentos.
