@@ -1,77 +1,66 @@
-# Ray Financeiro
+# Ray — Meu financeiro
 
-Site institucional e ferramentas gratuitas de educação e organização financeira.
+Organizador financeiro pessoal, simples e privado, feito para o Ray.
 
-**Assinatura:** Seu dinheiro, com mais direção.
+## O que faz
 
-## Prévia local
+- Registra entradas e saídas.
+- Mostra saldo, receitas e despesas do mês.
+- Organiza lançamentos por categoria.
+- Permite definir um limite mensal de gastos.
+- Acompanha metas de economia.
+- Pesquisa e filtra lançamentos.
+- Exporta lançamentos em CSV.
+- Faz backup e restauração de todos os dados em JSON.
 
-O projeto é estático e não precisa de Node.js ou build:
+## Como usar
 
-1. Baixe ou clone o repositório.
-2. Abra `index.html` no navegador ou use a extensão Live Server no VS Code.
-3. Navegue pelas páginas e teste os simuladores.
+O projeto é estático, sem Node.js, build, Netlify, banco de dados ou cadastro.
 
-## Publicação
+### Publicar gratuitamente com GitHub Pages
 
-A hospedagem deve permitir uso comercial. A recomendação inicial é conectar este repositório à Netlify e publicar a partir da branch `main`, com diretório de publicação na raiz do projeto. Consulte os termos e limites vigentes do plano escolhido antes de publicar.
+1. Abra a aba **Settings** deste repositório.
+2. Entre em **Pages** no menu lateral.
+3. Em **Build and deployment**, escolha **Deploy from a branch**.
+4. Selecione a branch **main** e a pasta **/(root)**.
+5. Salve e aguarde a publicação do GitHub Pages.
 
-Também é possível usar outro provedor de hospedagem estática com suporte a domínio próprio e HTTPS. O GitHub Pages não deve ser usado como hospedagem gratuita para administrar um negócio online ou facilitar transações comerciais.
+Depois, o endereço esperado será:
 
-## Personalização obrigatória antes do lançamento
+`https://nickebel.github.io/ray-financeiro/`
 
-Edite `assets/js/config.js`:
+O GitHub pode levar alguns minutos para publicar a primeira versão. O site não precisa de configuração de build.
 
-- `whatsapp`: número no formato internacional, apenas dígitos. Exemplo de formato: `55 + DDD + número`.
-- `email`: e-mail comercial real.
-- `instagram`: URL real do perfil.
+### Testar sem publicar
 
-Sem esses dados, os CTAs levam à página de contato, mas o formulário não encaminha mensagens. Essa configuração evita inventar canais de atendimento.
+Baixe o repositório e abra `index.html` no navegador. Também pode usar a extensão Live Server do VS Code.
 
-## Conteúdo que precisa ser confirmado pelo Ray
+## Privacidade: leia antes de usar
 
-- Formação, experiência e certificações reais.
-- Escopo efetivo de cada produto/serviço.
-- Preços, meios de pagamento, condições e política de cancelamento.
-- Disponibilidade e capacidade de atendimento.
-- Dados do responsável e política de privacidade completa.
-- Canais de atendimento e prazo de resposta.
+Os lançamentos, orçamentos e metas ficam salvos no `localStorage` do navegador utilizado. O site não envia essas informações ao GitHub, a uma API ou a um servidor.
 
-Os preços atuais são referências de planejamento, não uma confirmação comercial.
+Isso significa:
 
-## Funcionalidades
+- Os dados ficam disponíveis somente naquele navegador e aparelho.
+- Outro computador ou navegador começa com uma base separada.
+- Limpar os dados do navegador pode apagar as informações.
+- Exporte regularmente um backup em **Dados e ajustes**.
+- Para transferir os dados, exporte o JSON no aparelho antigo e importe no novo.
 
-- Páginas: Início, Sobre, Soluções, Ferramentas, Conteúdos, Contato, Privacidade e Termos.
-- Calculadora de orçamento mensal.
-- Simulador de reserva de emergência.
-- Simulador matemático de juros compostos.
-- Layout responsivo, navegação mobile e foco visível.
-- Calculadoras processadas localmente no navegador.
+O repositório e o código do site são públicos, mas os dados financeiros digitados pelo Ray não são gravados nos arquivos do GitHub.
 
 ## Estrutura
 
 ```
 .
 ├── index.html
-├── sobre.html
-├── solucoes.html
-├── ferramentas.html
-├── conteudos.html
-├── contato.html
-├── privacidade.html
-├── termos.html
 ├── assets/
 │   ├── css/styles.css
 │   ├── img/favicon.svg
-│   └── js/
-│       ├── config.js
-│       ├── main.js
-│       └── tools.js
-└── docs/PLANO-ESTRATEGICO.md
+│   └── js/main.js
+└── README.md
 ```
 
-## Nota de responsabilidade
+## Observação
 
-O site é estruturado para conteúdo educativo e organização financeira pessoal. Não oferece recomendação individualizada de investimentos, promessa de rentabilidade ou garantia de resultados. Atividades reguladas exigem análise dos requisitos e autorizações aplicáveis.
-
-A Política de Privacidade e os Termos são modelos iniciais e devem ser revisados para refletir o tratamento real de dados e os serviços efetivamente prestados.
+Este projeto é um organizador pessoal, não um banco, carteira digital ou serviço de investimento. Os valores são inseridos e mantidos pelo próprio usuário.
