@@ -1,54 +1,49 @@
 # ray. — Meu financeiro
 
-Aplicativo web de controle financeiro pessoal, pensado primeiro para celular e otimizado para o Safari no iPhone.
+Controle financeiro pessoal em formato de aplicativo web, com interface mobile-first para Safari e iPhone.
 
-## O que tem
+## Funcionalidades
 
-- Painel mensal com saldo, entradas, saídas e progresso do limite.
-- Seletor de mês para consultar períodos anteriores e futuros.
-- Gráfico de fluxo financeiro dos últimos seis meses.
-- Extrato com pesquisa, filtro por entrada/saída, edição e exclusão.
-- Categorias para receitas e despesas.
-- Limite de gastos individual por mês.
-- Metas financeiras com edição e registro de aportes.
+- Resumo do mês com saldo, entradas, saídas e cinco movimentações recentes.
+- Extrato com busca, filtro por mês e tipo, edição e exclusão.
+- Limite mensal e gastos agrupados por categoria.
+- Metas financeiras com edição e atualização de valores guardados.
 - Exportação do extrato em CSV.
 - Backup completo e restauração em JSON.
-- Navegação por quatro abas e ação rápida para novo lançamento.
-- Formulários em bottom sheet no celular e suporte às áreas seguras do iOS.
+- Quatro abas, ação rápida de lançamento e formulários em bottom sheet.
+- Manifesto PWA e áreas seguras para iOS.
 
-## Publicação no GitHub Pages
+## Dados existentes
 
-O projeto é estático: não usa Node.js, build, banco de dados ou servidor.
+A aplicação mantém a chave de armazenamento \`ray-financeiro-data-v1\` e o formato de dados das versões anteriores. Registros, limites e metas existentes permanecem no \`localStorage\` do mesmo navegador e aparelho.
 
-1. Abra **Settings** neste repositório.
-2. Entre em **Pages**.
-3. Em Build and deployment, selecione **Deploy from a branch**.
-4. Escolha a branch **main** e a pasta **/(root)**.
-5. Salve.
+Os dados não são enviados para o GitHub ou para um servidor. Use o menu de configurações para exportar um backup JSON antes de trocar de aparelho, navegador ou limpar os dados do Safari. O arquivo CSV contém as movimentações do mês selecionado.
+
+## Instalar no iPhone
+
+1. Abra o endereço no Safari.
+2. Toque em Compartilhar.
+3. Escolha Adicionar à Tela de Início.
+4. Abra o Ray pelo novo ícone.
+
+O projeto usa \`manifest.json\` com modo standalone. A instalação cria uma experiência em janela própria do iOS, mas não é um aplicativo nativo e não sincroniza dados entre dispositivos. Mantenha backups JSON atualizados.
+
+## Publicação
+
+Projeto estático para GitHub Pages, sem etapa de build, Node.js, banco de dados ou servidor.
+
+1. Em **Settings → Pages**, escolha **Deploy from a branch**.
+2. Selecione a branch \`main\` e a pasta \`/(root)\`.
+3. Salve.
 
 Endereço: https://nickebel.github.io/ray-financeiro/
 
-## Dados e privacidade
+## Arquivos
 
-Os registros ficam no armazenamento local (localStorage) do navegador. O site não envia movimentações para o GitHub nem para um servidor.
+- \`index.html\`
+- \`manifest.json\`
+- \`assets/css/styles.css\`
+- \`assets/js/main.js\`
+- \`assets/img/favicon.svg\`
 
-- Os dados ficam vinculados ao navegador e ao aparelho em que foram registrados.
-- Adicionar o site à Tela de Início do iPhone cria um acesso dedicado, mas não sincroniza dados entre navegadores ou aparelhos.
-- Antes de trocar de aparelho, navegador ou limpar os dados do Safari, use **Backup → Exportar dados**.
-- Para recuperar, abra **Backup → Importar dados** e selecione o arquivo JSON.
-- O CSV exporta somente as movimentações do mês selecionado.
-
-A chave de armazenamento atual é ray-financeiro-data-v1. Ela é preservada para manter os dados criados nas versões anteriores.
-
-## Adicionar à Tela de Início no iPhone
-
-No Safari, toque em **Compartilhar → Adicionar à Tela de Início**. O Ray poderá abrir pela tela inicial em uma janela própria do iOS. Isso não transforma o projeto em um aplicativo nativo nem substitui o backup.
-
-## Estrutura
-
-- index.html
-- assets/css/styles.css
-- assets/img/favicon.svg
-- assets/js/main.js
-
-O Ray é um organizador pessoal. Não é banco, carteira digital ou consultoria de investimentos.
+Ray é um organizador pessoal, não um banco, carteira digital ou consultoria de investimentos.
