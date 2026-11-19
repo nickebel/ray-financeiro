@@ -1,27 +1,24 @@
-# Ray — Meu financeiro
+# ray. — Meu financeiro
 
-Um organizador financeiro pessoal, simples e dinâmico, criado para o Ray.
+Aplicativo web de controle financeiro pessoal, pensado primeiro para celular e otimizado para o Safari no iPhone.
 
 ## O que tem
 
-- Resumo mensal com saldo, entradas e saídas.
-- Gráfico dos últimos seis meses.
-- Registro, edição e exclusão de movimentações.
+- Painel mensal com saldo, entradas, saídas e progresso do limite.
+- Seletor de mês para consultar períodos anteriores e futuros.
+- Gráfico de fluxo financeiro dos últimos seis meses.
+- Extrato com pesquisa, filtro por entrada/saída, edição e exclusão.
 - Categorias para receitas e despesas.
-- Busca e filtro do histórico.
-- Limite de gastos por mês.
-- Metas pessoais com atualização de valores guardados.
-- Exportação dos lançamentos em CSV.
-- Backup e restauração de todos os dados em JSON.
-- Layout responsivo para computador e celular.
-
-## Visual e navegação
-
-O site usa uma identidade editorial leve, com referências visuais tropicais: Fraunces e DM Sans, verde, creme, coral e amarelo. As seções funcionam em uma única página, com navegação por âncoras e formulários interativos.
+- Limite de gastos individual por mês.
+- Metas financeiras com edição e registro de aportes.
+- Exportação do extrato em CSV.
+- Backup completo e restauração em JSON.
+- Navegação por quatro abas e ação rápida para novo lançamento.
+- Formulários em bottom sheet no celular e suporte às áreas seguras do iOS.
 
 ## Publicação no GitHub Pages
 
-Não usa Netlify, Node.js, build, banco de dados nem servidor.
+O projeto é estático: não usa Node.js, build, banco de dados ou servidor.
 
 1. Abra **Settings** neste repositório.
 2. Entre em **Pages**.
@@ -29,43 +26,29 @@ Não usa Netlify, Node.js, build, banco de dados nem servidor.
 4. Escolha a branch **main** e a pasta **/(root)**.
 5. Salve.
 
-O endereço esperado é:
+Endereço: https://nickebel.github.io/ray-financeiro/
 
-https://nickebel.github.io/ray-financeiro/
+## Dados e privacidade
 
-## Como os dados são guardados
+Os registros ficam no armazenamento local (localStorage) do navegador. O site não envia movimentações para o GitHub nem para um servidor.
 
-Os registros ficam no armazenamento local (localStorage) do navegador. O site não envia transações para o GitHub nem para um servidor.
+- Os dados ficam vinculados ao navegador e ao aparelho em que foram registrados.
+- Adicionar o site à Tela de Início do iPhone cria um acesso dedicado, mas não sincroniza dados entre navegadores ou aparelhos.
+- Antes de trocar de aparelho, navegador ou limpar os dados do Safari, use **Backup → Exportar dados**.
+- Para recuperar, abra **Backup → Importar dados** e selecione o arquivo JSON.
+- O CSV exporta somente as movimentações do mês selecionado.
 
-Isso significa que:
-- Os dados ficam no navegador e aparelho usados pelo Ray.
-- Em outro navegador ou aparelho, será necessário importar um backup.
-- Limpar os dados do navegador pode apagar os registros.
-- Use **Baixar backup** para guardar uma cópia JSON.
-- Use **Restaurar backup** para recuperar ou transferir os dados.
-- O CSV pode ser aberto no Excel ou Google Planilhas.
+A chave de armazenamento atual é ray-financeiro-data-v1. Ela é preservada para manter os dados criados nas versões anteriores.
 
-O código do site é público, mas as movimentações que Ray digita não são adicionadas ao repositório.
+## Adicionar à Tela de Início no iPhone
+
+No Safari, toque em **Compartilhar → Adicionar à Tela de Início**. O Ray poderá abrir pela tela inicial em uma janela própria do iOS. Isso não transforma o projeto em um aplicativo nativo nem substitui o backup.
 
 ## Estrutura
 
-```
-.
-├── index.html
-├── README.md
-└── assets/
-    ├── css/styles.css
-    ├── img/favicon.svg
-    └── js/main.js
-```
+- index.html
+- assets/css/styles.css
+- assets/img/favicon.svg
+- assets/js/main.js
 
-## Escopo
-
-Este projeto é um organizador pessoal. Não é banco, carteira digital ou consultoria de investimentos.
-
-
-## Uso no iPhone
-
-A interface é responsiva e foi ajustada para o iPhone 14 (largura CSS de referência de 390 px), com navegação inferior, botões maiores, campos que evitam o zoom automático do Safari e respeito às áreas seguras do aparelho.
-
-No Safari, o Ray pode ser adicionado à Tela de Início pelo menu de compartilhamento para abrir como atalho.
+O Ray é um organizador pessoal. Não é banco, carteira digital ou consultoria de investimentos.
