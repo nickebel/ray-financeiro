@@ -108,6 +108,7 @@ svg {
   border-bottom: 1px solid rgba(229, 231, 235, .8);
   background: #FFFFFF;
 }
+.header-screen-title { display: none; color: #111827; font-size: 17px; line-height: 1.2; font-weight: 650; letter-spacing: -.35px; }
 .brand {
   display: inline-block;
   color: #111827;
