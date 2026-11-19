@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#142b45"><meta name="description" content="Use calculadoras gratuitas de orçamento, reserva de emergência e juros compostos do Ray Financeiro."><title>Ferramentas gratuitas — Ray Financeiro</title><link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/styles.css"><script defer src="assets/js/config.js"></script><script defer src="assets/js/main.js"></script><script defer src="assets/js/tools.js"></script></head>
+<body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a><div id="site-header"></div><main id="conteudo">
+<section class="page-hero section-shell"><span class="eyebrow">FERRAMENTAS GRATUITAS</span><h1>Mais clareza para seus números. <span>Sem complicação.</span></h1><p>Faça simulações rápidas para compreender seu orçamento, estimar uma reserva e visualizar cenários de juros compostos.</p><div class="privacy-inline">⌁ Seus cálculos são feitos localmente no navegador. Os valores digitados não são enviados nem armazenados por esta página.</div></section>
+<section class="section section-shell tools-layout">
+<article class="calculator-card" id="calculadora-orcamento"><div class="calculator-heading"><span class="calc-icon">▤</span><div><span class="eyebrow">01 · ORGANIZAÇÃO</span><h2>Orçamento mensal</h2><p>Veja quanto entra, quanto sai e qual saldo resta.</p></div></div>
+<form id="budget-form" class="calculator-form">
+<label>Renda mensal líquida <span>R$</span><input name="income" type="number" min="0" step="0.01" placeholder="Ex.: 3500" required></label>
+<div class="form-two"><label>Despesas fixas <span>R$</span><input name="fixed" type="number" min="0" step="0.01" placeholder="Ex.: 1500" required></label><label>Despesas variáveis <span>R$</span><input name="variable" type="number" min="0" step="0.01" placeholder="Ex.: 600" required></label></div>
+<label>Parcelas e dívidas do mês <span>R$</span><input name="debts" type="number" min="0" step="0.01" placeholder="Ex.: 400" value="0"></label>
+<button class="button button-primary button-full" type="submit">Calcular meu orçamento <span>↗</span></button>
+</form><div class="result-panel" id="budget-result" aria-live="polite"><span class="micro-label">SEU RESULTADO APARECERÁ AQUI</span><p>Preencha os campos para visualizar seu resumo mensal.</p></div></article>
+
+<article class="calculator-card" id="calculadora-reserva"><div class="calculator-heading"><span class="calc-icon">◉</span><div><span class="eyebrow">02 · SEGURANÇA</span><h2>Reserva de emergência</h2><p>Estime uma meta com base nos gastos essenciais.</p></div></div>
+<form id="reserve-form" class="calculator-form">
+<label>Gastos essenciais por mês <span>R$</span><input name="essentials" type="number" min="0" step="0.01" placeholder="Ex.: 2200" required></label>
+<div class="form-two"><label>Meses de cobertura<select name="months"><option value="3">3 meses</option><option value="6" selected>6 meses</option><option value="9">9 meses</option><option value="12">12 meses</option></select></label><label>Quanto já guardou <span>R$</span><input name="saved" type="number" min="0" step="0.01" placeholder="Ex.: 1000" value="0"></label></div>
+<label>Quanto pretende guardar por mês <span>R$</span><input name="monthly" type="number" min="0" step="0.01" placeholder="Ex.: 250" value="250"></label>
+<button class="button button-primary button-full" type="submit">Estimar minha reserva <span>↗</span></button>
+</form><div class="result-panel" id="reserve-result" aria-live="polite"><span class="micro-label">SUA META APARECERÁ AQUI</span><p>Informe seus gastos essenciais para estimar o objetivo.</p></div></article>
+
+<article class="calculator-card calculator-wide" id="calculadora-juros"><div class="calculator-heading"><span class="calc-icon">⌁</span><div><span class="eyebrow">03 · SIMULAÇÃO</span><h2>Juros compostos</h2><p>Explore como valor inicial, aportes, taxa e tempo influenciam um cenário matemático.</p></div></div>
+<form id="compound-form" class="calculator-form compound-fields">
+<label>Valor inicial <span>R$</span><input name="initial" type="number" min="0" step="0.01" value="1000" required></label>
+<label>Aporte mensal <span>R$</span><input name="contribution" type="number" min="0" step="0.01" value="200" required></label>
+<label>Taxa mensal hipotética <span>%</span><input name="rate" type="number" min="0" max="100" step="0.01" value="0.8" required></label>
+<label>Período <span>meses</span><input name="period" type="number" min="1" max="600" step="1" value="60" required></label>
+<button class="button button-primary button-full compound-submit" type="submit">Simular cenário <span>↗</span></button>
+</form><div class="result-panel result-wide" id="compound-result" aria-live="polite"><span class="micro-label">CENÁRIO SIMULADO</span><p>Preencha os campos e clique em simular.</p></div></article>
+</section>
+<section class="section section-muted"><div class="section-shell note-section"><div><span class="eyebrow">IMPORTANTE</span><h2>Simulação não é promessa.</h2></div><p>Os resultados são estimativas matemáticas, não consideram necessariamente impostos, taxas, inflação, oscilações ou regras de produtos financeiros. A taxa informada é hipotética e não representa rentabilidade oferecida ou esperada. A reserva de emergência deve considerar a estabilidade da renda, responsabilidades e contexto de cada pessoa.</p></div></section>
+</main><div id="site-footer"></div></body></html>
