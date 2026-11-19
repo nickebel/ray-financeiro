@@ -2,278 +2,200 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0F172A">
-  <meta name="description" content="Ray — seu controle financeiro pessoal, simples e organizado.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="description" content="ray. — controle financeiro pessoal.">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <title>ray. — Meu financeiro</title>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261118-fintech-app">
-  <script defer src="assets/js/main.js?v=20261118-fintech-app"></script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261119-native-ios">
+  <script defer src="assets/js/main.js?v=20261119-native-ios"></script>
 </head>
 <body>
-  <header class="app-header">
-    <a class="brand" href="#resumo" data-tab-link="resumo" aria-label="ray. — Resumo">
-      <span class="brand-mark">r</span>
-      <span class="brand-word">ray<span>.</span><small>MEU FINANCEIRO</small></span>
-    </a>
-
-    <details class="backup-menu" id="backup-menu">
-      <summary aria-label="Opções de backup">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 16v4h14v-4"/></svg>
-        <span>Backup</span>
-      </summary>
-      <div class="backup-popover">
-        <button type="button" data-action="export-backup">
-          <span class="menu-icon">↓</span><span><strong>Exportar dados</strong><small>Salvar cópia em JSON</small></span>
-        </button>
-        <button type="button" data-action="import-backup">
-          <span class="menu-icon">↑</span><span><strong>Importar dados</strong><small>Restaurar uma cópia JSON</small></span>
-        </button>
-        <button type="button" data-action="export-csv">
-          <span class="menu-icon">▤</span><span><strong>Baixar extrato</strong><small>Exportar o mês em CSV</small></span>
-        </button>
-      </div>
-    </details>
-    <input type="file" id="backup-file" accept="application/json,.json" hidden>
-  </header>
-
-  <main class="app-main">
-    <section class="app-screen is-active" id="resumo" data-screen aria-labelledby="summary-title">
-      <div class="screen-heading">
-        <div>
-          <p class="eyebrow">VISÃO GERAL</p>
-          <h1 id="summary-title">Oi, Ray <span class="wave" aria-hidden="true">✦</span></h1>
-          <p class="screen-subtitle">Aqui está o seu mês.</p>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="#resumo" data-tab-link="resumo" aria-label="ray. Início">ray.</a>
+      <details class="backup-menu" id="backup-menu">
+        <summary aria-label="Backup e configurações">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.6 2.7-.2-.1a1.7 1.7 0 0 0-1.8.2l-.2.1h-3.2l-.1-.2a1.7 1.7 0 0 0-1.5-1h-.2a1.7 1.7 0 0 0-1.5 1l-.1.2H6.2L6 19.7a1.7 1.7 0 0 0-1.8-.2l-.2.1-1.6-2.7.1-.1a1.7 1.7 0 0 0 .3-1.9l-.1-.2v-3.2l.2-.1a1.7 1.7 0 0 0 .8-1.7l-.1-.2 1.6-2.7.2.1a1.7 1.7 0 0 0 1.8-.2l.2-.1h3.2l.1.2a1.7 1.7 0 0 0 1.7.8l.2-.1 2.7 1.6-.1.2a1.7 1.7 0 0 0 .2 1.8l.1.2v3.2z" transform="translate(1 0) scale(.92)"/></svg>
+        </summary>
+        <div class="backup-popover">
+          <button type="button" data-action="export-backup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v4h14v-4"/></svg>
+            <span><strong>Exportar backup</strong><small>Salvar seus dados em JSON</small></span>
+          </button>
+          <button type="button" data-action="import-backup">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4L8 8M5 17v4h14v-4"/></svg>
+            <span><strong>Importar backup</strong><small>Restaurar um arquivo JSON</small></span>
+          </button>
+          <button type="button" data-action="export-csv">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5zM14 3v5h5M8 12h8M8 16h8"/></svg>
+            <span><strong>Exportar extrato</strong><small>Baixar o mês em CSV</small></span>
+          </button>
         </div>
-      </div>
+      </details>
+      <input type="file" id="backup-file" accept="application/json,.json" hidden>
+    </header>
 
-      <div class="month-picker" aria-label="Selecionar mês">
-        <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior">‹</button>
-        <div class="month-current">
-          <span class="month-caption">ACOMPANHANDO</span>
-          <strong id="month-label">Mês atual</strong>
-        </div>
-        <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês">›</button>
-      </div>
-
-      <article class="balance-card">
-        <div class="balance-topline">
-          <span class="card-label">SALDO DO MÊS</span>
-          <span class="balance-chip"><i></i> Resumo mensal</span>
-        </div>
-        <strong class="balance-value money" id="summary-balance">R$ 0,00</strong>
-        <div class="balance-progress">
-          <div class="progress-heading">
-            <span id="budget-progress-label">Defina um limite para acompanhar seus gastos</span>
-            <strong class="tabular" id="budget-progress-value">—</strong>
-          </div>
-          <div class="progress-track" id="budget-progress-track" role="progressbar" aria-label="Uso do limite mensal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <span id="budget-progress-bar"></span>
+    <main class="app-main" id="app-main">
+      <section class="app-screen is-active" id="resumo" data-screen aria-labelledby="summary-title">
+        <div class="screen-heading screen-heading-row home-heading">
+          <h1 id="summary-title">Olá, Ray</h1>
+          <div class="month-picker" aria-label="Selecionar mês">
+            <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+            <strong id="month-label">Mês atual</strong>
+            <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
           </div>
         </div>
-        <button class="balance-limit-link" type="button" data-tab="limite">Ver limite mensal <span>↗</span></button>
-      </article>
 
-      <div class="flow-grid">
-        <article class="flow-card income-card">
-          <div class="flow-card-top">
-            <span class="flow-icon" aria-hidden="true">↓</span>
-            <span class="card-label">ENTRADAS</span>
+        <article class="balance-card">
+          <div class="balance-card-heading">
+            <span>Saldo do mês</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/></svg>
           </div>
-          <strong class="flow-value money" id="summary-income">R$ 0,00</strong>
-          <span class="flow-caption">Dinheiro que entrou</span>
+          <strong class="balance-value money" id="summary-balance">R$ 0,00</strong>
+          <div class="balance-stats">
+            <div class="balance-stat income-stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m0 0-5 5m5-5 5 5"/></svg>
+              <span>Entradas</span>
+              <strong class="money" id="summary-income">R$ 0,00</strong>
+            </div>
+            <div class="balance-stat expense-stat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m0 0 5-5m-5 5-5-5"/></svg>
+              <span>Saídas</span>
+              <strong class="money" id="summary-expenses">R$ 0,00</strong>
+            </div>
+          </div>
+          <div class="balance-progress" id="balance-progress" hidden>
+            <div class="progress-heading">
+              <span id="budget-progress-label">Limite mensal</span>
+              <strong class="tabular" id="budget-progress-value">0%</strong>
+            </div>
+            <div class="progress-track" id="budget-progress-track" role="progressbar" aria-label="Uso do limite mensal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span id="budget-progress-bar"></span>
+            </div>
+          </div>
         </article>
-        <article class="flow-card expense-card">
-          <div class="flow-card-top">
-            <span class="flow-icon" aria-hidden="true">↑</span>
-            <span class="card-label">SAÍDAS</span>
-          </div>
-          <strong class="flow-value money" id="summary-expenses">R$ 0,00</strong>
-          <span class="flow-caption">Dinheiro que saiu</span>
-        </article>
-      </div>
 
-      <article class="surface-card chart-card">
-        <div class="card-heading">
-          <div>
-            <p class="eyebrow">ÚLTIMOS 6 MESES</p>
-            <h2>Fluxo financeiro</h2>
+        <section class="recent-section" aria-labelledby="recent-title">
+          <div class="section-title-row">
+            <h2 id="recent-title">Últimas movimentações</h2>
+            <button class="text-action" type="button" data-tab="extrato">Ver tudo</button>
           </div>
-          <div class="chart-legend">
-            <span><i class="legend-dot legend-income"></i>Entradas</span>
-            <span><i class="legend-dot legend-expense"></i>Saídas</span>
-          </div>
-        </div>
-        <div class="movement-chart" id="movement-chart" aria-label="Gráfico de entradas e saídas dos últimos seis meses"></div>
-      </article>
+          <div class="movement-list recent-list" id="recent-transactions"></div>
+        </section>
+      </section>
 
-      <article class="surface-card category-card">
-        <div class="card-heading">
-          <div>
-            <p class="eyebrow">PARA ONDE VAI</p>
-            <h2>Gastos por categoria</h2>
-          </div>
-          <button class="text-action" type="button" data-tab="limite">Ver tudo <span>↗</span></button>
-        </div>
-        <div id="category-breakdown" class="category-breakdown"></div>
-      </article>
-
-      <div class="install-tip" id="install-tip" hidden>
-        <span class="install-tip-icon" aria-hidden="true">⌂</span>
-        <div>
-          <strong>Leve o Ray para a Tela de Início</strong>
-          <p>No Safari, toque em <b>Compartilhar → Adicionar à Tela de Início</b>. Para trocar de navegador ou aparelho, exporte seu backup JSON: os dados não sincronizam automaticamente.</p>
-        </div>
-        <button type="button" class="tip-close" id="dismiss-install-tip" aria-label="Fechar aviso">×</button>
-      </div>
-    </section>
-
-    <section class="app-screen" id="extrato" data-screen aria-labelledby="statement-title" hidden>
-      <div class="screen-heading screen-heading-row">
-        <div>
-          <p class="eyebrow">SUAS MOVIMENTAÇÕES</p>
+      <section class="app-screen" id="extrato" data-screen aria-labelledby="statement-title" hidden>
+        <div class="screen-heading screen-heading-row">
           <h1 id="statement-title">Extrato</h1>
-          <p class="screen-subtitle">Entradas e saídas registradas.</p>
-        </div>
-        <button class="icon-action" type="button" data-action="export-csv" aria-label="Exportar extrato CSV" title="Exportar CSV">⇩</button>
-      </div>
-
-      <div class="month-picker statement-month">
-        <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior">‹</button>
-        <div class="month-current">
-          <span class="month-caption">EXIBINDO</span>
-          <strong id="records-month-label">Mês atual</strong>
-        </div>
-        <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês">›</button>
-      </div>
-
-      <div class="filter-panel">
-        <label class="search-box">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
-          <input type="search" id="transaction-search" placeholder="Buscar movimentação" aria-label="Buscar movimentação">
-        </label>
-        <label class="select-box">
-          <span class="sr-only">Filtrar movimentações</span>
-          <select id="transaction-filter" aria-label="Filtrar por tipo">
-            <option value="all">Todas</option>
-            <option value="income">Entradas</option>
-            <option value="expense">Saídas</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="statement-list" id="all-transactions"></div>
-      <div class="statement-footer">
-        <span class="records-foot" id="transaction-count">Nenhum registro ainda</span>
-        <button class="text-action" type="button" data-action="export-csv">Exportar CSV <span>↓</span></button>
-      </div>
-    </section>
-
-    <section class="app-screen" id="limite" data-screen aria-labelledby="budget-title" hidden>
-      <div class="screen-heading">
-        <div>
-          <p class="eyebrow">PLANEJAMENTO</p>
-          <h1 id="budget-title">Seu limite</h1>
-          <p class="screen-subtitle">Acompanhe seus gastos do mês.</p>
-        </div>
-      </div>
-
-      <div class="month-picker">
-        <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior">‹</button>
-        <div class="month-current">
-          <span class="month-caption">PLANEJAMENTO DE</span>
-          <strong id="budget-month-label">Mês atual</strong>
-        </div>
-        <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês">›</button>
-      </div>
-
-      <article class="budget-card">
-        <div class="budget-card-head">
-          <span class="card-label">LIMITE MENSAL</span>
-          <span class="budget-card-icon" aria-hidden="true">⌁</span>
-        </div>
-        <div id="budget-summary" class="budget-summary"></div>
-        <button class="primary-button" type="button" data-action="set-budget">Editar limite mensal <span>↗</span></button>
-      </article>
-
-      <article class="surface-card category-card category-budget">
-        <div class="card-heading">
-          <div>
-            <p class="eyebrow">DETALHAMENTO</p>
-            <h2>Gastos por categoria</h2>
+          <div class="month-picker" aria-label="Selecionar mês">
+            <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+            <strong id="records-month-label">Mês atual</strong>
+            <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
           </div>
         </div>
-        <div id="planning-categories" class="category-breakdown"></div>
-      </article>
-    </section>
-
-    <section class="app-screen" id="metas" data-screen aria-labelledby="goals-title" hidden>
-      <div class="screen-heading screen-heading-row">
-        <div>
-          <p class="eyebrow">SEUS PLANOS</p>
-          <h1 id="goals-title">Metas</h1>
-          <p class="screen-subtitle">Pequenos passos, grandes planos.</p>
+        <div class="filter-panel">
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+            <input type="search" id="transaction-search" placeholder="Buscar" aria-label="Buscar movimentação">
+          </label>
+          <label class="select-box">
+            <span class="sr-only">Filtrar</span>
+            <select id="transaction-filter" aria-label="Filtrar por tipo">
+              <option value="all">Todas</option>
+              <option value="income">Entradas</option>
+              <option value="expense">Saídas</option>
+            </select>
+          </label>
         </div>
-        <button class="icon-action" type="button" data-action="add-goal" aria-label="Criar nova meta" title="Nova meta">＋</button>
-      </div>
-      <div class="goals-summary">
-        <span class="goals-summary-icon" aria-hidden="true">◎</span>
-        <div><strong>Seu próximo objetivo começa aqui.</strong><p>Crie uma meta e acompanhe o quanto já guardou.</p></div>
-      </div>
-      <div class="goals-grid" id="goals-list"></div>
-      <button class="primary-button goals-add-button" type="button" data-action="add-goal">＋ Nova meta</button>
-    </section>
-  </main>
+        <div class="movement-list statement-list" id="all-transactions"></div>
+        <div class="statement-footer">
+          <span class="records-foot" id="transaction-count">Nenhum registro</span>
+          <button class="text-action" type="button" data-action="export-csv">Exportar CSV</button>
+        </div>
+      </section>
 
-  <nav class="bottom-tabs" aria-label="Navegação principal">
-    <button class="tab-button active" type="button" data-tab="resumo" aria-current="page">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
-      <span>Resumo</span>
-    </button>
-    <button class="tab-button" type="button" data-tab="extrato">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>
-      <span>Extrato</span>
-    </button>
-    <button class="tab-add" type="button" data-action="add-transaction" aria-label="Nova movimentação">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-    </button>
-    <button class="tab-button" type="button" data-tab="limite">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg>
-      <span>Limite</span>
-    </button>
-    <button class="tab-button" type="button" data-tab="metas">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
-      <span>Metas</span>
-    </button>
-  </nav>
+      <section class="app-screen" id="limite" data-screen aria-labelledby="budget-title" hidden>
+        <div class="screen-heading screen-heading-row">
+          <h1 id="budget-title">Limite</h1>
+          <div class="month-picker" aria-label="Selecionar mês">
+            <button class="month-arrow" type="button" data-action="previous-month" aria-label="Mês anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+            <strong id="budget-month-label">Mês atual</strong>
+            <button class="month-arrow" type="button" data-action="next-month" aria-label="Próximo mês"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <section class="budget-overview">
+          <div class="budget-summary" id="budget-summary"></div>
+          <button class="text-action budget-edit" type="button" data-action="set-budget">Editar limite</button>
+        </section>
+        <section class="category-section">
+          <h2>Gastos por categoria</h2>
+          <div class="category-breakdown" id="planning-categories"></div>
+        </section>
+      </section>
+
+      <section class="app-screen" id="metas" data-screen aria-labelledby="goals-title" hidden>
+        <div class="screen-heading screen-heading-row">
+          <h1 id="goals-title">Metas</h1>
+          <button class="icon-action" type="button" data-action="add-goal" aria-label="Nova meta">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div class="goals-list" id="goals-list"></div>
+        <button class="new-goal-button" type="button" data-action="add-goal">Nova meta</button>
+      </section>
+    </main>
+
+    <nav class="bottom-tabs" aria-label="Navegação principal">
+      <button class="tab-button active" type="button" data-tab="resumo" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+        <span>Início</span>
+      </button>
+      <button class="tab-button" type="button" data-tab="extrato">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>
+        <span>Extrato</span>
+      </button>
+      <button class="tab-add" type="button" data-action="add-transaction" aria-label="Nova movimentação">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="tab-button" type="button" data-tab="limite">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg>
+        <span>Limite</span>
+      </button>
+      <button class="tab-button" type="button" data-tab="metas">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+        <span>Metas</span>
+      </button>
+    </nav>
+  </div>
 
   <dialog class="modal" id="transaction-modal">
     <form id="transaction-form" class="modal-form">
       <div class="modal-head">
-        <div><p class="eyebrow">MOVIMENTAÇÃO</p><h2 id="transaction-modal-title">Novo registro</h2></div>
-        <button class="modal-close" type="button" data-close="transaction-modal" aria-label="Fechar">×</button>
+        <h2 id="transaction-modal-title">Nova movimentação</h2>
+        <button class="modal-close" type="button" data-close="transaction-modal" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
       </div>
       <input type="hidden" name="id">
       <div class="type-switch">
         <label class="type-option expense-option"><input type="radio" name="type" value="expense" checked><span>Saída</span></label>
         <label class="type-option income-option"><input type="radio" name="type" value="income"><span>Entrada</span></label>
       </div>
-      <label class="field-label">Descrição<input name="description" maxlength="70" placeholder="Ex.: mercado, salário..." autocomplete="off" required></label>
+      <label class="field-label">Descrição<input name="description" maxlength="70" placeholder="Ex.: mercado, salário" autocomplete="off" required></label>
       <div class="form-grid">
-        <label class="field-label">Valor (R$)<input name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
+        <label class="field-label">Valor<input name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
         <label class="field-label">Data<input name="date" type="date" required></label>
       </div>
       <label class="field-label">Categoria<select name="category" id="transaction-category" required></select></label>
       <div class="modal-actions">
         <button class="secondary-button" type="button" data-close="transaction-modal">Cancelar</button>
-        <button class="primary-button" type="submit">Salvar movimentação</button>
+        <button class="primary-button" type="submit">Salvar</button>
       </div>
     </form>
   </dialog>
@@ -281,14 +203,13 @@
   <dialog class="modal" id="budget-modal">
     <form id="budget-form" class="modal-form">
       <div class="modal-head">
-        <div><p class="eyebrow">PLANEJAMENTO</p><h2>Definir limite</h2></div>
-        <button class="modal-close" type="button" data-close="budget-modal" aria-label="Fechar">×</button>
+        <h2>Limite mensal</h2>
+        <button class="modal-close" type="button" data-close="budget-modal" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
-      <p class="modal-copy">Quanto você pretende gastar neste mês?</p>
-      <label class="field-label">Limite mensal (R$)<input name="limit" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Ex.: 2500" required></label>
+      <label class="field-label">Valor do limite<input name="limit" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
       <div class="modal-actions">
         <button class="secondary-button" type="button" data-close="budget-modal">Cancelar</button>
-        <button class="primary-button" type="submit">Salvar limite</button>
+        <button class="primary-button" type="submit">Salvar</button>
       </div>
     </form>
   </dialog>
@@ -296,18 +217,18 @@
   <dialog class="modal" id="goal-modal">
     <form id="goal-form" class="modal-form">
       <div class="modal-head">
-        <div><p class="eyebrow">OBJETIVO FINANCEIRO</p><h2 id="goal-modal-title">Nova meta</h2></div>
-        <button class="modal-close" type="button" data-close="goal-modal" aria-label="Fechar">×</button>
+        <h2 id="goal-modal-title">Nova meta</h2>
+        <button class="modal-close" type="button" data-close="goal-modal" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
       <input type="hidden" name="id">
-      <label class="field-label">Nome da meta<input name="name" maxlength="55" placeholder="Ex.: viagem, reserva..." required></label>
+      <label class="field-label">Nome<input name="name" maxlength="55" placeholder="Ex.: viagem, reserva" required></label>
       <div class="form-grid">
-        <label class="field-label">Valor desejado (R$)<input name="target" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="Ex.: 5000" required></label>
-        <label class="field-label">Já guardado (R$)<input name="saved" type="number" inputmode="decimal" min="0" step="0.01" value="0"></label>
+        <label class="field-label">Valor desejado<input name="target" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
+        <label class="field-label">Já guardado<input name="saved" type="number" inputmode="decimal" min="0" step="0.01" value="0"></label>
       </div>
       <div class="modal-actions">
         <button class="secondary-button" type="button" data-close="goal-modal">Cancelar</button>
-        <button class="primary-button" type="submit">Salvar meta</button>
+        <button class="primary-button" type="submit">Salvar</button>
       </div>
     </form>
   </dialog>
@@ -315,15 +236,15 @@
   <dialog class="modal" id="contribution-modal">
     <form id="contribution-form" class="modal-form">
       <div class="modal-head">
-        <div><p class="eyebrow">ATUALIZAR META</p><h2>Adicionar valor</h2></div>
-        <button class="modal-close" type="button" data-close="contribution-modal" aria-label="Fechar">×</button>
+        <h2>Adicionar valor</h2>
+        <button class="modal-close" type="button" data-close="contribution-modal" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
       </div>
       <input type="hidden" name="id">
       <p class="modal-copy" id="contribution-goal-name"></p>
-      <label class="field-label">Quanto você guardou? (R$)<input name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
+      <label class="field-label">Valor guardado<input name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0,00" required></label>
       <div class="modal-actions">
         <button class="secondary-button" type="button" data-close="contribution-modal">Cancelar</button>
-        <button class="primary-button" type="submit">Atualizar meta</button>
+        <button class="primary-button" type="submit">Adicionar</button>
       </div>
     </form>
   </dialog>
