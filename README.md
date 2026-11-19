@@ -62,3 +62,10 @@ O código do site é público, mas as movimentações que Ray digita não são a
 ## Escopo
 
 Este projeto é um organizador pessoal. Não é banco, carteira digital ou consultoria de investimentos.
+
+
+## Uso no iPhone
+
+A interface é responsiva e foi ajustada para o iPhone 14 (largura CSS de referência de 390 px), com navegação inferior, botões maiores, campos que evitam o zoom automático do Safari e respeito às áreas seguras do aparelho.
+
+No Safari, o Ray pode ser adicionado à Tela de Início pelo menu de compartilhamento para abrir como atalho.
