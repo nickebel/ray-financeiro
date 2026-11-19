@@ -101,7 +101,7 @@ svg {
   z-index: 30;
   flex: 0 0 auto;
   min-height: 58px;
-  padding: calc(12px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-left)) 12px max(20px, env(safe-area-inset-right));
+  padding: calc(12px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 12px max(20px, env(safe-area-inset-left));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -717,7 +717,7 @@ svg {
   z-index: 40;
   flex: 0 0 auto;
   min-height: 58px;
-  padding: 6px max(12px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
+  padding: 6px max(12px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
