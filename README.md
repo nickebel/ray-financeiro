@@ -15,7 +15,7 @@ Organizador financeiro pessoal, simples e privado, feito para o Ray.
 
 ## Como usar
 
-O projeto é estático, sem Node.js, build, Netlify, banco de dados ou cadastro.
+O projeto é estático: não precisa de Node.js, processo de build, banco de dados, conta ou servidor próprio.
 
 ### Publicar gratuitamente com GitHub Pages
 
