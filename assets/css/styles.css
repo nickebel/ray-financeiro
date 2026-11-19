@@ -928,6 +928,8 @@ svg {
 
 /* Standalone iOS: compact app chrome, native safe-area spacing. */
 @media (display-mode: standalone) {
+  .brand { display: none; }
+  .header-screen-title { display: block; }
   .app-header {
     min-height: 52px;
     padding-top: calc(8px + env(safe-area-inset-top));
