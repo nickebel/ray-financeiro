@@ -970,3 +970,15 @@ svg {
     transition-duration: .01ms !important;
   }
 }
+/* iOS tactile surfaces: no accidental text selection or tap flash. */
+.balance-card,
+.movement-row,
+.goal-card,
+.bottom-tabs,
+.tab-button,
+.tab-add {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
