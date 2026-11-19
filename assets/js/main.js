@@ -266,6 +266,17 @@
   }));
   $$(".modal").forEach(dialog=>dialog.addEventListener("click",event=>{if(event.target===dialog)dialog.close();}));
   document.addEventListener("keydown",event=>{if(event.key==="Escape")closeMenu();});
+  if("IntersectionObserver" in window){
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const active=$('.desktop-nav a[href="#'+entry.target.id+'"]');
+          if(active)$(".desktop-nav a").forEach(link=>link.classList.toggle("active",link===active));
+        }
+      });
+    },{rootMargin:"-22% 0px -68% 0px"});
+    $("main section[id]").forEach(section=>observer.observe(section));
+  }
   $("#current-year").textContent=new Date().getFullYear();
   render();
 })();
